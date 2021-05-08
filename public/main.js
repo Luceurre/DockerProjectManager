@@ -7,7 +7,7 @@ const path = require("path");
 const isDev = require("electron-is-dev");
 let mainWindow;
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 900, height: 680, webPreferences: {
+  mainWindow = new BrowserWindow({ width: 800, height: 480, webPreferences: {
     nodeIntegration: true,
     contextIsolation: false,
 } });

@@ -6,6 +6,7 @@ enum DockerProjectStatus {
     STOPPED,
     UNKNOWN
 }
+export {DockerProjectStatus};
 
 interface DockerNetwork {
     id: string;
@@ -25,6 +26,8 @@ interface DockerContainer {
     image: DockerImage;
     State: string;
 }
+
+export type {DockerContainer}
 
 export interface DockerProject {
     name: string;
@@ -64,16 +67,7 @@ function getDockerProjectsList() {
             return dockerProject;
         });
         return projects;
-    }).then((dockerProjects: Array<DockerProject>) => {
-        dockerProjects.forEach((dockerProject: DockerProject) => {
-            getDockerProjectContainers(dockerProject)
-            .then((containers: Array<any>) => dockerProject.containers = containers)
-            .then(() => {
-                dockerProject.status = getDockerProjectStatus(dockerProject);
-            });
-        });
-        return dockerProjects;
-    });;
+    })
 }
 
 function getDockerProjectContainers(dockerProject: DockerProject) {
@@ -90,10 +84,18 @@ function getDockerProjectContainers(dockerProject: DockerProject) {
                     isValid = false;
                 }
             });
+
+            Object.values(container.NetworkSettings.Networks).forEach((network: any) => {
+                if (network.NetworkID == dockerProject.network) {
+                    isValid = false;
+                }
+            })
+
             return isValid;
         });
     });
 }
+export {getDockerProjectContainers};
 
 function getDockerProjectStatus(dockerProject: DockerProject) {
     let isRunning = false;
@@ -104,5 +106,6 @@ function getDockerProjectStatus(dockerProject: DockerProject) {
     })
     return (isRunning) ? DockerProjectStatus.RUNNING : DockerProjectStatus.STOPPED;
 }
+export {getDockerProjectStatus};
 
 export { getDockerProjectNamesList, getDockerProjectsList}
