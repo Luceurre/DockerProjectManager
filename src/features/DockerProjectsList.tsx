@@ -9,8 +9,8 @@ import {
 } from '../DockerProject';
 import './DockerProjectsList.css'
 
-class DockerProjectEntry extends React.Component<{project: DockerProject}, {project: DockerProject}> {
-    constructor(props: {project: DockerProject}) {
+class DockerProjectEntry extends React.Component<{project: DockerProject, height: number}, {project: DockerProject}> {
+    constructor(props: {project: DockerProject, height: number}) {
         super(props);
 
         this.state = {
@@ -30,9 +30,9 @@ class DockerProjectEntry extends React.Component<{project: DockerProject}, {proj
 
     describeProjectStatus(status: number) {
         if (status === DockerProjectStatus.RUNNING) {
-            return <div className="projectStatus" style={{color: "green"}}>RUNNING</div>;
+            return <div className="projectStatus" style={{color: "green"}}><i className="fas fa-check"/></div>;
         } else {
-            return <div className="projectStatus" style={{color: "red"}}>STOPPED</div>;
+            return <div className="projectStatus" style={{color: "red"}}><i className="fas fa-times"/></div>;
         }
     }
 
@@ -48,12 +48,12 @@ class DockerProjectEntry extends React.Component<{project: DockerProject}, {proj
             }
         });
 
-        return <div className="containersStatus"><span>{upContainerCount}</span>/<span>{downContainerCount}</span></div>
+        return <div className="containersStatus"><span style={{color: "green"}}>{upContainerCount}</span> / <span style={{color: "red"}}>{downContainerCount}</span></div>
     }
 
     render() {
         return (
-            <div className="projectEntry">
+            <div className="projectEntry" style={{height: 0.9 * this.props.height + "vh", fontSize: this.props.height * 0.25 + "vh"}}>
                 <div className="projectName">{this.state.project.name}</div>
                 {this.displayContainersStatus(this.state.project.containers)}
                 {this.describeProjectStatus(this.state.project.status)}
@@ -101,7 +101,7 @@ export default class DockerProjectsList extends React.Component<Props, State> {
     render() {
         const renderedProjects: Array<JSX.Element> = []
         this.state.projects.forEach((project: DockerProject) => {
-            renderedProjects.push(<DockerProjectEntry project={project} />)
+            renderedProjects.push(<DockerProjectEntry project={project} height={100. / this.state.projects.length} />)
         })
         return (
             <div className="projectsList">

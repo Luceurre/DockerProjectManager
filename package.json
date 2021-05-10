@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.15.3",
     "@reduxjs/toolkit": "^1.5.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
@@ -16,7 +17,10 @@
     "concurrently": "^6.1.0",
     "cross-env": "^7.0.3",
     "dockerode": "^3.3.0",
+    "electron-builder": "^22.11.1",
+    "electron-forge": "^5.2.4",
     "electron-is-dev": "^2.0.0",
+    "electron-prebuilt-compile": "^8.2.0",
     "electron-reload": "^1.5.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -27,9 +31,11 @@
   },
   "scripts": {
     "start": "concurrently \"cross-env BROWSER=none rescripts start\" \"wait-on http://localhost:3000 && electron .\"",
-    "build": "react-scripts build",
+    "build": "react-scripts build && electron-forge make",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,8 +54,17 @@
   },
   "devDependencies": {
     "@rescripts/cli": "^0.0.16",
-    "electron": "^12.0.6"
+    "electron": "^12.0.6",
+    "electron-prebuilt-compile": "8.2.0"
   },
   "main": "public/main.js",
-  "homepage": "./"
+  "homepage": "./",
+  "description": "A simple dashboard for dockerized projects.",
+  "author": {
+    "name": "Pierre Glandon",
+    "email": "pglandon78@gmail.com"
+  },
+  "build": {
+    "appId": "pierre.glandon.dockerpanel"
+  }
 }

@@ -1,28 +1,35 @@
 .projectsList {
-    display: flex;
-    flex-direction: column;
+    /*display: grid;*/
+    /*grid-template-columns: repeat(1, 1fr);*/
+    text-transform: uppercase;
 }
 
 .projectEntry {
-    /*display: flex;*/
-    /*flex-direction: row;*/
     display: grid;
-    grid-template-areas: "a c b";
-    align-items: center;
+    grid-template-columns: 33% 33% 33%;
+    margin-bottom: 2%;
+    /*margin-top: 2%;*/
+    border-radius: 255px 15px 225px 15px/15px 225px 15px 255px;
+    border:solid 5px black;
+    padding-left: 2%;
+    padding-right: 2%;
 }
 
+
 .projectName {
-    grid-area: a;
-    text-align: left;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .containersStatus {
-    grid-area: c;
-    /*text-align: center;*/
+    margin-top: auto;
+    margin-bottom: auto;
+    text-align: center;
 }
 
 .projectStatus {
-    grid-area: b;
+    margin-top: auto;
+    margin-bottom: auto;
     text-align: right;
 }
 /*.projectEntry {*/
