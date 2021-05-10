@@ -11,6 +11,7 @@ function createWindow() {
     nodeIntegration: true,
     contextIsolation: false,
 } });
+  mainWindow.removeMenu();
   mainWindow.loadURL(
     isDev
       ? "http://localhost:3000"
